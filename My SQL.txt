@@ -1,0 +1,1098 @@
+Till CRUD:
+
+1.SHOW DATABASES; to show all the data bases that are available in the database server
+2.CREATE DATABASE <name of the db>; to create a new database in MY SQL server
+3.DROP DATABASE <name of the db>; to delete an already existing data base
+4.USE <name of the databas>; to tell the server that with which data base we are working
+5.SELECT database(); to know with which data base we are currently working on
+	Use will get "NULL" if we were not using any data base at the point of writing the command;
+6. CREATE TABLE tablename
+	(
+	column name    datatype,	
+	column name    datatype 
+ 	);
+7. SHOW TABLES; It shows tables in your current data base
+8. SHOW COLUMNS FROM <table name>; Shows columns in the specified table
+9. DESC <tablename>; same as that of the above one
+10.DROP TABLE <tablename>; Used to delete tables from the data base
+    Note : When you try to show tables when there are actually no tables in the database, It will show "Empty Set", when you desc a table which is not existing in our database,
+    	   then it will show that, the database doenst exist.
+12. INSERT INTO <tablename>(column name, column name,....) 
+    VALUES(data realated to column1, data related to coulumn2,....),
+	   (data realated to column1, data related to coulumn2,....),
+	   (data realated to column1, data related to coulumn2,....);
+	Note: The order of the column names can be of any order, but the only thing we have to ensure is the order of the columns given and the order in which data is passed into 
+	must match with each other.
+13. SELECT * FROM <tablename>; displays all the data in the specified table
+14. SHOW WARNINGS; Shows the warnings that are present
+15. CREATE TABLE tablename
+	(
+	column name    datatype NOT NULL,	
+	column name    datatype  NOT NULL
+ 	);
+    If we specify this way, the two columns preceded by NOT NULL wont permit the columns to be null,
+	In practise, that will throw a warning message if we leave any column that is set as not null without assiging any default value.
+16.CREATE TABLE tablename
+	(
+	column name    datatype DEFAULT any default value of that particular data type,	
+	column name    datatype DEFAULT any default value of that particular data type
+ 	);
+17.The are some cases where though we defined a default value to a particular column, we do provide the null value to it explicitly,
+   at that point, If we dont set that particular column to no null, then it wont throw us any warning.
+	Hence, it is advisable to use NOT NULL.
+	CREATE TABLE tablename
+	(
+	column name    datatype NOT NULL DEFAULT any default value of that particular data type,	
+	column name    datatype NOT NULL DEFAULT any default value of that particular data type
+ 	);
+
+18. The fundamental thing of databases is that, we should have the things(each and every record or row) uniquely identifyable....
+	for that we have got a precise term i.e "PRIMARY KEY"
+	Primary Key:Unique Identifier
+	
+	CREATE TABLE tablename
+	(
+	column name    datatype NOT NULL,	
+	column name    datatype  NOT NULL,
+	PRIMARY KEY (field or column name)
+ 	);
+	if we try to create a duplicate entry to primary key, it will throw an error message.
+	Though we have got dupliate data with uniquely identity, that is ok.
+19. We need not to specify the value to the PRIMARY KEY field every time when we are putting in the data,
+	We have got "AUTO_INCREMENT",
+	What it does is, it will add one, when every time a new reecord is created and there by, we completely leave off the primary key ids field and continue
+	with the data insertion into the rest of the fields.
+20. * in SELECT * FROM <tablename> means give me all the columns from the specified table.
+21. Suppose if you want to have only one particular column from the table and not all then we can query the following way,
+	SELECT <column_name> FROM <table_name>;
+    Suppose if we wish to have more than one column from the table and not all then we can query it the following way
+	SELECT column_1, column_2... FROM <table_name>;
+22.If we have 10k rows in a column and we want to select only one specific item, then we need to use WHERE clause.
+	we use where not only to select, but also to update, delete.
+	SELECT * FROM <table_name> WHERE <condition>;
+	SELECT column_1, column_2... FROM <table_name> WHERE <condition>;
+23. After inserting data into the table if you want to display the fields under one column with other name,
+    then we can use Alias
+	SELECT <column_name> AS <alias_name> FROM <table_name>;
+	it is just  for relabling and is more helpful while working with multiple tables with same column names. Most felicitous use case while working with "JOINS".
+	Note : Alias wont change anything with in the table and its data.
+24. UPDATE :
+	When we want to update a paticular field of a particular column with a piece of data by erasing the alrey existing data we use UPDATE,
+	Real time example: In an user data base, there will be already a passowrd that is associated with a particular user_name,
+	when the same user forgets the password and resets the same by using FORGET PASSWORD... then, the already existing password associated with that particular
+	user name has to be erased and the latest password has to be updated in the database.
+
+	UPDATE <table name> SET <condition for what has to be updated> WHERE <condition for where has to be updated>;
+	Note : Make sure that youre targetting the right data before you make any update.
+	first select using SELECT statement and then update after ensuring right data to avoid accidental updations.
+        The same is applicable when dealing with delete... This is only because there is no "UNDO".
+
+25. DELETE: Earlier we have used DROP table if we wanted to delete an entire table,
+	but if at all if you need to delete only one record from the table, then we use delete... Not only one but also a group of rows that are connected by a similiar condition
+	Real time Example:
+	If one of the customers of a website deleted his account and he no longer wants to come back to the site again,
+	At this time we have to delete his credentilas and related data from our database...
+	At this point of time, we do make use of DELETE.
+  	note : Be careful while using DELETE, We dont have undo option here too
+	Point to ponder: Dont think that the auto incremented will be auto decremented once after deleting a particular record, 
+	that wont happen because... tables are inter depended to one another, so ifn such adjustment happens in one table... that will create an unnecessary mess in the whole db..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+STRING COMMANDS:
+
+
+
+1. CONCAT - Combines Strings
+   Into this function, we pass in multiple pieces of data and it will combine them,
+   Syntax : CONCAT (Column name1, Column Name2,....);
+	EX: SELECT CONCAT('Ram','Robert','Raheem'); 
+	Result : RamRobertRaheem
+   Note : We can use multiple concats in combination with multiple field combinations in a single statement.
+   	Important: We havegot a similar kind of concat and that is with separator.
+	CONCAT_WS('_','Venkata','Prasad','Atla');
+	Out Put: Venkata_Prasad_Atla
+2. SUBSTRING :
+	As the name itself says, it is gaoing to make the given string into substring
+	
+	Syntax:
+		SELECT SUBSTRING(column name, index number from where the substringing has to start, number of indices that our substring should have);
+		Example :  SELECT SUBSTRING('VENKATA PRASAD', 2, 5);
+		Note: In My Sql Unlike other programming laguages the Index starts from 1,
+			So, The given string VENKATA PRASAD gets index allocation in the following way
+						V E N K A T A   P R   A   S   A   D
+						1 2 3 4 5 6 7 8 9 10  11  12  13  14
+			Coming to our substring function, The Substringing starts from index '2' i.e from 'E' and covers '5' indices i.e till 'T'
+	So, the result of our example query is "ENKAT"
+		Example 2: SELECT SUBSTRING('Ravivarma',3);
+		Output: vivarma.
+		Example 3: SELECT SUBSTRING('Ravivarma',-4);
+		Output: arma {-4 a,-3 r, -2 m,-1 a}
+	Note : we have SUBSTR()  as a substitution for SUBSTRING();
+Additional: We can use any string function in any other function for example.... SUBSTING inside CONCAT...
+SELECT CONCAT(SUBSTRING(<string or column name>,<starting index>,<substring length>), thing that has to be concatenated with the substring) FROM table;
+ :) We have to write alias after CONCAT.
+3. REPLACE : it replaces parts of a string.
+	Syntax : SELECT REPLACE(<string>, <part of the string we wanted to remove>,<part pf the string we wanted to replace>);
+	Ex: SELECT REPLACE("VENKATAKUMAR","KUMAR","PRASAD SANKAR");
+	OUTPUT: VENKATAPRASASD SANKAR.
+	EX: SELECT REPLACE("VENKATA PRASAD",'A','!@#$%^&*()');  In this case, all the A s will be replaced by "!@#$%^&*()"
+	OUTPUT: 'VENK!@#$%^&*()T!@#$%^&*() PR!@#$%^&*()S!@#$%^&*()D',
+
+Note: As said earlier we can use any string function with any other function, the same thing applies to REPLACE too
+ for example, we can use CONCAT, SUBSTRING inside REPLACE
+
+
+SELECT REPLACE(CONCAT(author_fname,' ',author_lname),'a','$%') AS "REPLACED_cONCATENATED" FROM books;
+SELECT REPLACE(SUBSTRING(author_fname,1,5),'a','$$$$') AS "REPLACED SUBSTRING" FROM books;
+
+and the vice versa is also ok...
+4.REVERSE: reverses the string
+	SELECT REVERSE(<STRING>);
+EX : SELECT REVERSE("VENKATA PRASAD")	
+
+5. CHAR_LENGTH:
+		It counts the number of characters in a string.
+	SYNTAX : SELECT CHAR_LENGTH(<String>);		
+
+6. UPPER(), LOWER(),
+
+ Changes the case of the string...
+
+ Syntax : SELECT UPPER(<STRING OR COLUMN NAME>); same for lower too...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REINED SELECT:
+
+
+
+
+1. 	DISTINCT :
+		It returns the unique fields of a column.
+	Syntax :
+		SELECT DISTINCT <column_name> FROM <table_name>;
+2.	ORDER BY:
+	Used to sort data
+	SYNTAX: SELECT <column name or(s)> FROM <table_name> ORDER BY <column name(s) by which things have to be ordered>;
+	By default... it orders in Ascinding order. if you want you can use ASC
+	 by providing "DESC"  we can make the things orderded in descending order.
+
+	Note : It need not have the selected column mandatorily after the ORDER BY... We can have any column by which we have to Order.
+	Shortcut: Suppose we have written three column names in select part of a command and if we want to order by the things based on the second listed thing in the slect statement
+ 	then we can use the number 2 to get the thing done for us.
+	-> we can order by Alias name too
+	Note: we can order by two different columns too, Things will first sorted based on the first column mentioned, oand once that is done... then the sorting is done based on the second
+	second column mentioned in the orderby list.
+3. LIMIT : Limit allows us to specify a number for how many results we want to select.
+	this limit is often used in conjuction with ORDER BY to make menaing ful results...
+	In fact we can use the LIMIT without such conjunctions too, but the things gets limited will be in the order they are inserted,
+	to be literally meaningful LIMIT first what? without such conjunctions... How can we come to know which one first and what we are going to get from a huge data.
+
+	SYNTAX : SELECT <column name or names> FROM <table name> LIMIT <number of items to be limited;
+	we have got another Synax to specify the starting point and to how many elements we have to go from that starting point
+      Syntax : SELECT <column_name or names> FROM <table_name> ORDER BY <column name or names> <ASC/DESC> 
+		LIMIT <starting_point from where the limiting has to start>, <number of elements the query has to limit from the starting point that we have mwntioned>;
+	Note : Unline indices in the srting... the starting index in the rows of a table is "0"
+4. LIKE :
+	This LIKE operator allows us to go ahead with better searching
+	So far we have seen the queries where we performed selection operation that is exactly character to charecter or word to word match.
+	Lets consider a real time example...
+	Suppose you are searching for a book in a book store and you dont remember the exact name of the book or the author... You think
+	That books author first name starts with 'pra'
+	The searchings we have seen so far dont have the options to go ahead to serve the purpose of this kind of Searching...
+	But, LIKE operator allows us to go ahead with such searching.
+    	SYSNTAX :
+		SELECT <column name or names> FROM <table name> WHERE <column name> LIKE <the pattern which our search result must contain>;
+		eg 1:
+		WHERE first_name LIKE '%av%'----> '%' is called wild card 1.Gets all the first names that have "av" in them
+						                          2.It is not case sensitive
+										3. fetches 4 kind of results... 1. ANYTHING av ANYTHING    praveen
+														2. NOTHING  av ANYTHING    avinash
+														3. ANYTHING av NOTHING	   pranav
+														4. NOTHING  av NOTHING	   av
+		eg 2:
+		WHERE title LIKE 'malli%' ---> fetches all the selected records where the title starts with "malli" -------mallimuchatlu  
+		WHERE first_name LIKE '%ratri'---> fetches all the selected records where the title ends with "ratri" ------ amrutham kurisina ratri.
+5. WILD CARDS:
+		1. _ (Under score) it represents exactly one charecter
+		2. * (Asterisk) Everything
+		3. % (modulo) Anything
+   --> If our field itself is having a wild char character in it, then we have to keep a backslash "\" before that charecter to mach all the fields that are having such fields.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+AGGREGATE FUNCTIONS:
+
+
+
+
+
+
+
+1. COUNT :
+	it is going to count what ever we ask it to count.
+
+	SYNTAX : SELECT COUNT(<column name or names or *>) FROM <table name>; /* Optionally there can be conditions too at the end*/
+2. GROUP BY:
+		It summerizes or aggregates identical data into single rows.
+	---> The moment when we try to group things by using group by, A super row containig all the grouped rows gets generated... But when we display the same,
+	Only a preview of that super row appears on the output console.
+	SYNTAX : GROPU BY <column name>
+	if we use COUNT(*) in conjuction with the group by... It will retun the count of all the rows grouped by each unique grouped by element.
+3. MIN AND MAX:
+		These go one with the other... One finds the minimum value and the other one finds the maximum value n the table.
+ 	We can use them on thier own or we can use the with the GROUP BY too...
+	SYNTAX : SELECT MIN(<Column name or names>) FROM <table name>;
+4. SUBQUERIES :
+		Writing a query in another query...
+		It is very slow... Whern we write a subqery, one query runs inside another and both do run independently... Two separate queries are going to take time.
+		Every time we do a select, It takes time. If you are really worried about the time in our example of findig the title of the boook by using the book pages count
+	Then go ahead and use ORDER BY and LIMIT in conjunction..
+
+5. Example Queries of using Group By, MIN and MAX functions in conjunction to each other..
+
+	Ex1 : From Our Books data if we wish to select the name and the yera of hi or her publication
+	Query : SELECT CONCAT(author_fname, ' ', author_lname), MIN(released_year) FROM books GROUP BY author_fname,author_lname;
+	Ex 2: From our books data if we wish to select name and the longest book page count of a a particular author
+	Query : SELECT CONCAT(author_fname, ' ', author_lname), MAX(pages) FROM books GROUP BY author_fname,author_lname;
+
+6.SUM : It sums or adds things together.
+
+	SYNTAX : SUM(column name);
+7. Average
+	It averages the data...
+	Syntax : AVG(<column name or names>)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+REVISITING DATATYPES:
+
+1. VARCHAR & CHAR
+	CHAR --> It has a fixed length.
+	Suppose if we declare a column's data type to be a CHAR of 5 characters,
+	adn if you key in a value that is greater than 5 charecters... Then the charaters more than 5 gets truncated and only 5 characters gets displayes
+	and if you key in the value that is less than 5 charectes, then that is going to add white spaces to the rest of all the the charecters to make the value 5.(Right Padding)
+ ***> 	CHAR will always allocate the same amount of memory at every instance & that particular amount of memory has to be specified at the time of declaration of the column
+	The value of the CHAR ranges from 0 to 255.
+	CHAR is faster for a fixed length text...
+	If you clearly know that a particular column is of fixed length... It doesnt make any sense in using VARCHAR to work with such data item. eg : Gender : M/F , Yes or No Flags : Y/N
+	
+2. NUMBERS :
+	INT : Works with whole numbers,
+	DECIMAL : It is a number that includes a decimal poin and something after it.
+		Syntax : DECIMAL (<total number of digits that our decomal number can have>,<number of digits that a  number can have after the decimal point>)
+	    	Note : *--> If we input a number that has more than the number of digits sepecifies... It fills the decimal and integer portion with all 9 s
+		       *--> Rounding of  will always happen when you input the decimal value with more than the specified digits
+		       *--> It is a fixed point type and the calculations are exact
+	FLOAT & DOUBLE : These are floating point type and the calculations are approximate.
+			Used to store larger numbers using less space
+			FLOAT, Double needs 4 and 8 bytes and have precission issuues after 7 and 45 digts respectively
+			When ever youre working with gigantic numbers and precission doent really matter, then we can use float and double preferably double..
+			If youre really concerned about the precission, then we have to use DECIMAL
+3. DATE : It just stores a date without a time
+	FROMAT : YYYY-MM-DD - 1997-11-25
+   TIME : It just stores a time without date
+	FORMAT :  HH:MM:SS - 10:25:30
+   DATETIME :
+	FORMAT : "YYYY-MM-DD HH:MM:SS"
+4. CURDATE() - Gives current date
+   CURTIME() - Gives current time
+   NOW()     - Gives current datetime
+
+5. DAY() - it extracts only day from the date by leaving month and year eg: DAY(2000-11-25) gives 25
+   DAYNAME() - It names the day of that particular date in the calender passed as a parameter to this function
+   DAYOFWEEK() - It returns the day number in the week--- If it falss on sunday it returns 1, if it is on monday it returns 2 and so on and so forth
+   DAYOFYEAR() - It returns the day number of that particular day starting from the beginning of the year
+   MONTH() -	It returns the month of the date
+   MONTHNAME()
+	When we are working with time... We have got few functions
+   HOUR()
+   MINUTE()
+   SECOND()
+7. Date Format:
+	%D - Day name
+	%d - Day number
+	%Y - Full year
+	%y - Last two digits of the year
+	%M - month name
+	%m - Month number
+	%h - hours in 12 hrs format
+	%H - hours in 24 hrs format
+	%p - AM or PM
+
+8.Date Math:
+	DATEDIFF(date1, date2) : It takes two dates as in put and gives the diffrences between two dates...
+	DATE_ADD/DATE_SUB(date or datetime, INTERVAL <how many units you want to add or subtract to the mentioned date or datetime> <unit of the ding or subtracting thing... Month or seconds etsc>)
+	We can use + / - too
+	date / date stamp +/- INTERVAL exp unit
+			----> We can add multiple things using this syntax
+Not that useful but it is good to know
+
+
+9.**** TIMESTAMPS:
+	We quite often add in time stamps to the tables...
+	It is all about storing data about Time... When you created a post and when you added something into a table.... 
+	real time example : Whwn you post something on facebook, first it starts showing updated few minutes ago, updated few hours ago.
+			    After that it will show just date only... This and all possible due to timestaps
+Both DATETIME and TIMESTAMP do the same... There are two differences
+	Datetime is used to for values that comtain both date and time parts It ranges years from 1000 to 9999
+	Time stamp is also used for the same kind of values but the year ranges from 1970 to 2038
+
+	We have to be very care ful while creating data types... If we are storing the date that is older than 1970 and that is greater tha 2038 then the time stap is not going to work.
+	Where as ,
+	We are talking about saving when something is created or most recently updated... We dont need to worry about the ranges because that would in the nearby past only
+
+So, we can straight forward go ahead and use TIMESTAMP
+
+It takes up less space like all other alternative In MYSQL
+
+
+SYNTAX: <column name> TIMESTAMP DEFAULT NOW();
+
+When we update a particular column and we are supposed to Update the time at which we have updated that tooo... At that time what we have to do is we have to use 'ON UPDATE';
+we have got CURRENT_TIMESTAMP    -> It does the same thing that the NOW() does.
+ 
+
+
+
+
+
+
+
+
+
+
+LOGICAL OPERATORS:
+
+
+
+
+
+Logical Operators allow us to add our logic to the SQL Statements
+1. Not Equal : (!= or <>)
+	We actually use = sign to include something
+	Here not equals goes exactlcy opposite to that = where we exclude the records included using =
+2.NOT LIKE :
+	It is just the opposite of LIKE
+	Like is used to match a pattern, the same way NOT LIKE is used to exclude the records that match the pattern
+3.Greater Than (>), Greater Than Equal (>=) it is inclusive of the figure mentioned in the condition too
+  Note : if you put any condition like 99>1 or 200< 100 it returns 1 or 0 based on the condition we give
+         In SQL's Eyes... Both Upper case and lower case letters are same.
+4.Less Than (<), Less Than Equal (<=)
+5.LOGICAL AND(&& OR AND)
+	To chain multiple pieces of logical information together
+	Condition 1 && Condition 2
+	Both conditions should be true to get our result to be true
+	We can Have more than two conditions too, and the same applies for 
+6.LOGICAL OR(|| OR OR0)
+	logical and and logical or are like brother and sister
+	Condition 1 || Condition 2
+	Only one thing must be true for the whole thing to be true
+7. BETWEEN : 
+	It allows us to select things based of of two values, Upper and Lower range
+	SYNTAX: BETWEEN x AND y
+        AND , && ARE DIFFERENT
+	AND is always paired with BETWEEN
+   NOT BETWEEN : Does Opposite.
+	Note : While working with date or time values use CAST() to explicitly convert the values to the desired data type
+	CAST(<value> AS <data_type>);	
+	If you pass a string containing a date as parameter to between it is better to cast it to there respective data type.
+8. IN 
+	: It allows us to provide a set of values and checks if a given column is in that set.
+	Syntax : IN (comma seperated list of values)
+   NOT IN : Opposite to IN
+	Note : We can use logical operators in conjuction with IN and NOT IN to perform better
+		We canuse Modulo too, unlike programming we need not to use Loops here, It will automatically loop from top to bottom if we slect the column
+9. CASE STATEMENTS:
+	It has to do with the logic but on a bigget scale,
+	It allows us to make decisions 
+	By allowing you to add logic in, it allows you to act conditionally
+
+
+  First thing we have here is CASE that says the below one is going to be a case statement
+     which consists points of logic that will speak one thing out and that thing ends down
+	when we see END.
+	
+	Case Statement takes the following form, 
+	There will always be WHEN atleast one and an ELSE {Opening Case, Closing End}
+	
+
+	Syntax :
+SELECT <column name or names>     Note: Last Column Should end with a COMMA (,)
+		CASE
+			WHEN 	<condition> THEN <action to be done>
+			WHEN 	<condition> THEN <action to be done>
+			----------------------------------------
+			----------------------------------
+			----------------------------------------------
+			ELESE	<action to be done>
+		END
+FROM <table name>;
+
+Note : It is not mandatory to have the columns that we are working with to be selected at the select part of the statement that we write on the top of the CASE
+
+
+
+
+
+
+
+RELATIONSHIPS BASICS:
+
+
+
+Here after we start working with multiple databases that are connected
+We talk about how they are related and how to implement multiple tables using those relations
+First time we are going to focus on related data
+
+
+
+RELATIONSHIPS AND JOINS:
+So far we have worked with data with one tablle with very less columns inorder to focus on details...
+If we have 20 tables to worry about, we cannot focus on the details of the functionality of the things that we have discussed so far
+
+Thats is deffinetly not how the real world works,
+
+Typically... Realworld data data is typically messy and interrelated(There will be a lot of connections between data),
+
+We are gonna see how to work with interrelated
+
+
+Relationship Basics:
+1. One to One Relationship
+2. One to Many Relationship
+3. Many to Many Relationship
+
+
+One to One Relationship: These relations are not that common,
+Eg: Customer table that has a basic information like Username, Password, E-Mail (These are the common details that we need about a customer)
+ Besides these we shall be having a whole bunch of details related to a customer. We dont kee all that information in the basic customer table and to store all those details
+       We create another table that is "Customers_Details"
+-->That is one to one relationship... One Customer in the "Customers" table will have his own row in the "Customer_Details".
+
+But, it is not common...
+
+What we most commonly have is "One to Many relationship".
+
+ONE Book in the Books table can have MANY reviews in the Reviews table, and all those Reviews are exclusively related to one book, that is what it mean by "One to many Relationship"
+
+
+
+Next we have many to many relation ships:
+
+Eg : Books can have multiple authors and authors can have multiple books
+
+
+
+
+
+
+
+
+
+
+
+
+One to Many Relationship basics and Setting Keys(PRIMARY & FOREIGN):
+
+
+
+
+
+
+
+
+*>1:MANY:
+	Lets take the example of customers and orders
+	
+	Lets suppose the columns we are having associated our customers details be 
+		1. firstname
+		2. lastname
+		3. email
+	Lets suppose that the columns we are having associated with the orders details be
+		1.order date
+		2.amount
+  Suppose if we have got all the columns combined in a single table and we have got few records in the table, that some how looks like below
+	
+	firstname	lastname	email			orderdate	amount
+	venkat		prasad		venkat123@rmail.com	25-11-2003	1500
+	venkat		prasad		venkat123@rmail.com	12-01-2020	1600
+	ram		prasad		ram@rmail.com		01-01-2019	1200
+	ram		prasad		ram@rmail.com		16-03-2020	200
+	vennela		kiran		venk@gmail.com		NULL		NULL
+	Venkatesh 	Prasath		venkat@kmail.com	NULL		Null
+
+Here, though we are storing the information that we are supposed to store... We have got lot of duplicated data
+In the last two records vennela kiran and venkatesh prasath have not placed orders yet, but we have their customer information
+but they still have order date and amount as its columns...
+This technicall represents this details... Venkat Prasad, ram Prasad have two orders each and Vennela kiran and blue steel have no orders yet..
+
+yes, it works but is not a great way of doing it...
+	Here the details are getting duplicated a lot right, if somebody has shopped a lot we would get Tonns of duplications which is just a waste.
+
+
+Few users just sign up just for the sake... There is no reason to have any to do with ordersuntil they place orders
+If you just happen to work only with customers... There will be times where you dont actually bother about Orders
+say for example... When a customer is signing in... We just take their email and password fields,
+that has nothing to do with order related data... then why should we have to go through all the gaint order related data?
+
+Its not about the duplication but It is better to keep the data seperated almost every time.
+
+
+
+
+What do we do?
+
+	Customers			Orders
+	customer-id			orderid
+	firstname			orderdate
+	lastname			amount
+	email				customer_id
+
+This is how we express one to many relationship,
+	Now, we have two tables, Customers and Orders 
+		The crux here is the customer_id that need not to be same in both the tables... But, it is important to note about is
+		that is(the customer_id column in the orders table) the reference to customers table
+So, what ever customer id is in a given Order... Is going to correspond to an actual customer who placed it.
+
+
+
+
+Primary Key:
+Primary key column in a table means... It is always unique.   It is Guaranteed to be unique
+
+In the above example, Customer_id in customers table and orderid in orders table are Primary Keys
+
+
+
+Foriegn Key:
+Foriegn keys are references to another table, in a given table
+
+lets take the above example,
+Customer_id in the orders table is an example for foriegn key, because it is referring to the id of the customersin the customers table
+where as customers table is not having any foriegn key because it is not referring to any external table...
+
+
+When we use Foriegn key in our schema definition... What ever the column youre specifying as a foriegn key in present table is an existing one in other table.
+
+
+what if we insert 20 as customer_id in orders table which does not exist in the customers table... That will be enforced by the foriegn key when we use that in our schema definition
+
+
+Note :
+Unless you wont specify that column as a Foreign Key, It wont enforces the presence of some data element that is not there in the primary key field in the other table
+when we insert that in the current table in which we wish to set the column as a foreign key...
+
+It just considers this supposed column as all other columns and functions accordingly unless you specify its interrelation as a FOREIGN KEY
+			(Note : Has to be done and shown to the students while taking class)
+
+SETTING KEYS:
+
+PRIMARY KEY:
+
+		----> column_name DATATYPE AUTO_INCEREMENT* PRIMARY KEY
+		----> PRIMARY KEY(columnname)
+
+* Optional
+
+FOREIGN KEY:
+		Process of Setting up a FOREIGN KEY:
+			
+			On a seperate line we have to specify FOREIGN KEY
+			Next in the paranthesis we have to specify the name of field or column we are referring to in our existing table
+			Next we have to specify what it is refencing by using REFERENCES
+			Next we have to specify the name of the table in which our so called foreign key column exists
+			Next in the paranthesis we have to mention the name of the column in the referred table
+
+		Syntax: FOREIGN KEY (column name in current table) REFERENCES reference table name(column name in the reference table);
+
+Note : There is a convention here, we can give the name of the column that we wish to set as a FOREIGN KEY as following
+	
+	reference tablename _ column name in the reference table
+
+--> Now if we try to enter some thing that is not there, Foriegn key constrain enforces
+
+
+
+
+
+
+
+
+
+JOINS :
+
+What join let us do is "It allows us to take two tables and allows us to conjoin them in a couple of diffrent configurations"
+
+Take up data from, take up data from another and stickup together in usually a meaningful way...
+
+
+SELF JOIN:
+
+Suppose we are having a table named as "emplyees" which contains the details such as 
+his epmloyee id, first name, last name and his manager id to whom he reports to..
+A point to note here is, the manager to whom an employee reports too is also an employee in the same table....
+
+with that said, if we wanted to find the name & manager name of an epmloyee in this employees table...
+we have to match one column of this table with an other column of the table... 
+
+
+Since we are matching one column of a table with another column of the same table... The kind of join we are using here is called as "Self Join"
+
+We are joing a table with itself...
+
+Note:
+	The Column Names in the employees table are as follows:
+	employee_id
+	first_name
+	last_name
+	job_title
+	salary
+	reports_to
+	office_id
+Query:
+	SELECT employee.employee_id, employee.first_name, employee.last_name,
+	       manager.employee_id,manager.first_name,manager.last_name
+	FROM employees employee 
+	JOIN employees manager
+	ON employee.reports_to = manager.employee_id;
+
+Query Explanation:
+
+Though we are joining a table with that itself... what we have to do is for the convention of joining we are giving two alias names to the table that we are self joining
+
+And as we moved forward in writing query...
+
+we have selected emplyee id, eployee first anme and last name from the employee which is nothing but the employees table that we are having
+and manager id, manager first name and last name from the manager table which in turn is the employees table we aliased as manager table
+
+and then 
+
+
+we have joined both employee table, manager table
+when the "reports_to" column in the "employee" table matches with the "employee_id" column in the "manager" table.
+
+
+Now what it does is... It selects "employee_id","first_name","last_name" from "employee" table,
+			takes "reports_to" column field from employee table,
+			finds the row in 'manager' table whose "employee_id" matches with the "reports_to" taken from the "employee" table
+			and finally selects the "employee_id","first_name","last_name" from that particular row
+
+resulting a row in our finalized output.
+
+Likewise, It repeats and ends up our final result.
+
+
+
+
+
+
+CROSS JOIN:
+	Lets see one way that is not meaningful to start...
+	1st most basic one to starts joins with... But, we prbably never use it....
+
+
+*************************************************************************************************
+	Suppose we have got two tables customers and orders as follows...
+	
+	customers:
+	id(pk)	first_name	last_name	email
+	1	Boy		George		george@gmail.com
+	2	George		Michael		gm@gmail.com
+	3	David		Bowie		david@gmail.com
+	4	Blue		Steele		blue@gmail.com
+	5	Bette		Davis		bette@aol.com
+
+	orders
+	order_id(pk)	order_date	amount		customer_id(fk)
+	1		2016-02-10	99.99		1
+	2		2017-11-11	35.50		1
+	3		2014-12-12	800.67		2
+	4		2015-01-03	12.50		2
+	5		1999-04-11	450.25		5
+**************************************************************************************************
+
+	Lets see what happens if i write a SELECT statement as follows
+
+	SELECT * FROM customers, orders;
+*****************************************************************************************************************************
+	id(pk)	first_name	last_name	email			order_id	order_date	amount	customer_id.
+	1	Boy		George		george@gmail.com	1		2016-02-10	99.99	1
+	2	George		Michael		gm@gmail.com		1		2016-02-10	99.99	1
+	3	David		Bowie		david@gmail.com		1		2016-02-10	99.99	1
+	4	Blue		Steele		blue@gmail.com		1		2016-02-10	99.99	1
+	5	Bette		Davis		bette@aol.com		1		2016-02-10	99.99	1
+	1	Boy		George		george@gmail.com	2		2017-11-11	35.50	1
+	2	George		Michael		gm@gmail.com		2		2017-11-11	35.50	1
+	3	David		Bowie		david@gmail.com		2		2017-11-11	35.50	1
+	4	Blue		Steele		blue@gmail.com		2		2017-11-11	35.50	1
+	5	Bette		Davis		bette@aol.com		2		2017-11-11	35.50	1
+	1	Boy		George		george@gmail.com	3		2014-12-12	800.67	2
+	2	George		Michael		gm@gmail.com		3		2014-12-12	800.67	2
+	3	David		Bowie		david@gmail.com		3		2014-12-12	800.67	2
+	4	Blue		Steele		blue@gmail.com		3		2014-12-12	800.67	2
+	5	Bette		Davis		bette@aol.com		3		2014-12-12	800.67	2
+	1	Boy		George		george@gmail.com	4		2015-01-03	12.50	2
+	2	George		Michael		gm@gmail.com		4		2015-01-03	12.50	2
+	3	David		Bowie		david@gmail.com		4		2015-01-03	12.50	2
+	4	Blue		Steele		blue@gmail.com		4		2015-01-03	12.50	2
+	5	Bette		Davis		bette@aol.com		4		2015-01-03	12.50	2
+	1	Boy		George		george@gmail.com	5		1999-04-11	450.25	5
+	2	George		Michael		gm@gmail.com		5		1999-04-11	450.25	5
+	3	David		Bowie		david@gmail.com		5		1999-04-11	450.25	5
+	4	Blue		Steele		blue@gmail.com		5		1999-04-11	450.25	5
+	5	Bette		Davis		bette@aol.com		5		1999-04-11	450.25	5
+****************************************************************************************************************************
+
+	What we got is actually a "CROSS JOIN" 
+	it is also called a "CARTESIAN JOIN"
+	
+What it does is, it takes every customer and conjoining with every order,
+Think of, it is almost multiplying them...
+It is taking first order, and it is stiking that next to all customers...
+Next it is taking the second order and sticking that next to all customers...
+and it moves on....
+
+It is taking two tables and joining every row and every possible combination next to each other...
+
+which is meaningless and there is no reason to do it....
+
+But we have seen it becuase it is the first and most basic type of join.
+
+
+
+
+
+
+
+
+
+
+
+INNER JOIN:
+
+Now lets see whiddling it down to what is actually relavent,
+
+We want to see the firstname, last name, email of every use who actually placed an order next to that order,
+Not every orbitaray order..
+
+We are getting close....!
+
+If we have all of it next to each other,
+Now we just wanna only select the rows, wher what? what condition is true?
+where our user id is equal to the order customer id.
+
+Its just like any other select we have done, but a where gets added
+
+now lets write a select statement,
+
+SELECT * FROM customers, orders WHERE what is true?
+				      id from customers is equal to customer_id from orders;
+
+So lets proceed and write
+SELECT * FROM customer,orders WHERE id=customer_id;
+
+here we have got a problem we have 2 ids in this particular juncture... One from the customers table and the other from orders table
+
+
+fortunately wehave a work around...
+
+prepend the name of the table in from which you wish to select the columns that you kept in the condition
+
+
+that goes some how like this...
+
+SELECT * FROM customers, orders WHERE customers.id = orders.customer_id;    here . referes to from that table
+
+
+Note : There in the above case we have got only two tables and in those two tables, we have got only one 'customer_id'
+so, it is not necessary to mention the name of the table 'orders' in the condition we specified there explicitly...
+but,it is always preferable that when ever we are working with more than one table to specify the table name explicitly before the column name
+
+
+Till now the inner join that we have worked with is the implicit innerjoin.
+
+
+
+Note : Explanation for Inner join using venn:
+What we did in the beginning is, we have combined and selected every thing from the two tables...
+but all that we wanna do with inner join is ,take inside with a overlap
+
+
+i.e Select all records from A and B where the joun condition is met
+------------------------------------------------------------------------------------------------------------------------------------------------------
+We termed it as implicit because, we have a better way of doing this just by using the explicit syntax:
+
+That looks somehow as follows...
+
+	SELECT * FROM customers JOIN orders on customers.id = orders.customers_id;
+
+It does exactly what the above implict join make, but we are referring to it as Explicit join because we have used a key word called JOIN here...
+
+that means, take the left and right and join them(create the UNION table) where our union condition is satisfied...
+
+
+---------------------------------
+
+Last thing we see here is... Does the order matter?
+
+
+It does matters only in the way it is presenting you... that means how you want to see the output of your query..
+Other than that.., Everything is same.
+
+
+
+
+Tip:
+When we are doing a join... It is better to do it Explicitly....
+
+Where we have select something from a table,
+Join on another table,
+On a condition....
+
+Note :
+1.we use it the most..
+2.We can perform any of the sql operations on the data returned by the JOIN
+3.We can explicitly mention that as INNER JOIN or we can simply leave it as 'JOIN'
+
+
+
+
+
+
+
+
+
+
+
+
+
+IFNULL(arg1, arg2)
+
+arg1 is the thing you wanna check,
+arg2 is the thing you want to replace with when the checked thing is foungd null
+
+
+eg:
+	IFNULL(amount, 0);
+
+ 
+LEFT JOIN:
+
+	It is gonna take everything from the first table,
+	So, if customers is the table to our left... It will take every customer...
+	and on the right It will match the matching records from the table which is right... in our case "Orders"
+
+In other words... 
+It takes the union of where they match just like inner join but it also takes  every thing from the left table...
+
+---->We are taking every thing from the atble we have on our LEFT, and we are taking the inter section as well where there is an applicable condition match...
+
+
+Suppose in the above example of orders and tables I just wanted to see highest spender and along with that I just want to see the customers who havent spent anything...
+that menas I just want to see the one who havent placed order... 
+
+Now we can keep the customers table in the left and we can place orders table in the right and left join... folowed by Group By, sum, order by tp get the desired out oout put
+
+
+RIGHT JOIN:
+
+Exactly opposite to Left Join
+
+
+ON DELETE CASCADE:
+
+Suppose we have two tables and a column in Table1 is a foreign key in table2
+
+if we try deleting one any row from table1, then it will throw an error (foreign key constarint wont let you deleete that particular row since it has got some 
+intere dependency with another row in an other table)
+at this time we have got a work around... That is...
+
+
+we can use ON DELETE CASCADE
+
+
+if we keep this ON DELETE CASECADE in the table in which we have got interdependecy from another table,
+
+when a record is deleted from the table1 that has corresponding thing in table2,
+
+then this ON DELETE CASCADE deletes all the corresponding things in table 2.
+
+
+
+NOTE :
+
+If we flip the positioning of lolumn names in the join statements... Left Join becomes right one and the right one becomes,
+It is just a matter of fact that how it is going to return the data on the output console varies.. thats it, rest of all will be technically same
+In fact we can format the data in which it has to be displayed in the ouput console by specifying the column names instead of using * wild card..
+
+So.. both will left and roght joins will be one and the same if we filp the column name.
+
+
+
+******************Notes From Mosh Tutorial**********************************:
+----> REGEXP STANDS FOR REGULAR EXPRESSION 
+             ^ - starting of the string
+	     $ - ending of the string
+	     | - we can suppy multiple search patterns.
+	     regexp '[gim]e' -> searches for the string with any of the following in last name 
+				ge
+				ie
+				me             in it
+
+---> range of characters can be given by keeping the first character and last charcter with a '-' in the middle within the brackets like this
+			    '[a-h]e'.
+
+---> when we keep two columns one after the other in order by clause first it starts ordering the things as per the first specified column pattern,
+if there is a duplicate in the first column then the ordering of such duplicate is done based on the second column ordering pattern.
+
+-----> The speciality of my sql is we can sort data by any column, whether that column is in the select clause or not... here in my sql we can sort the data by using alias too.
+
+--->  if we keep 1,2,3... kind of notation after "Order By" that means they represent the order of columns specified in the select clause.
+ 
+---> LIMIT offset, number of limiting values;
+
+
+---> SELECT -> FROM -> WHERE -> ORDER BY -> LIMIT.
+---------------------------------------------------------------------
+----> LAST_INSERT_ID();
+      Selects the id of the latest inserted record
+
+----> To create copy of a table
+
+	CREATE TABLE <table name> AS
+	SELECT * FROM <original table name>;
+      
+
+
+	* While Copying a table like this, attributes like Primary Key, Auto Inrement will be completly igonred
+--------------------------------------------------------------------------
+Composite Primary Key contains more than one column...
+by both those columns combined together, the table uniquely identifies a row...
+
+Implicit join is fine:
+
+		SELECT <column names to be selected from the tables> 
+		FROM <table names>
+		WHERE 	<the condition on which both tables are supposed to be joined>
+
+         *> It is ok if you use it, but
+	    If we accidentally forget to mention this 'WHERE'
+	    Then it will become "CROSS JOIN"
+
+
+CROSS JOIN:
+	everey record in one table joins with every record in the other table
+
+
+Lets see how to covert an inner join into outer join:
+
+What happens when we write a join query by mentioning a condition,
+It selects the records from both tables that matches the condition we specify as a join condition... isnt it?
+Well, yes
+
+Now suppose there came a requirement like this....
+
+If a client comes and says, 
+Hey, I want all my customers names and their order details if they had placed any... Its completly fine if they havent placed any order..
+Thats completly fine...!
+
+
+then what will you do?
+On what condition you will join both the tables using joins....?
+
+
+Cool!
+
+Outer Join is there to help us out in writing this query..
+
+we have two outer joins...
+
+that are LEFT and RIGHT
+
+when we use a left join, it returns all from the LEFT table are returned whether the condition we specify in join is true or not...
+Like wise the right join, where as in that case it retuns all the record from the right table irrespective of the truth of the join condition.
+
+
+
+
+USING:
+	if the column name that we are using in the join condition is exactly same in both the tables that we are joining
+	Then we can use 'USING'
+	
+	i.e
+	we can replace the following line
+	ON orders.customer_id = customers.customer_id
+	with 
+	USING(customer_id)
+
+
+However, though two columns in two different tables representing same data of each other with differnt columns using "TWO DIFFERENT NAMES"
+						WE CANNOT USE "USING".
+NOTE: if we have a composite primary and we are writing a query to join two tables using that compasite primary key in the condition
+	If we wanted to use USING() to serve the purpose 
+	by replacing the lengthy and tedious join condition having "tb1.col1 =tabl2.col1 AND tabl1.col2 = tabl2.col2"
+	USING(col1,col2);
+
+
+UNION:
+
+using JOINS we can combine columns from multiple tables
+by using UNIONS we can combine rows from multiple tables
+
+Note: 1. The number of columns we are combining in each row should be same, other wise it throws ERROR
+      2. Name of the columns that the union returns is based on the first query that we keep in the UNION
+
+
+
+
